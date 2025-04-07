@@ -10,11 +10,15 @@ import { useParams } from 'next/navigation';
 import { useState } from 'react';
 
 const Meeting = () => {
-  const params = useParams(); // Get params as a Promise object
-  const id = params?.id; // Access id safely
+  const params = useParams();
+  const id = params?.id;
 
   const { user, isLoaded } = useUser();
   const [isSetupComplete, setIsSetupComplete] = useState(false);
+
+  if (typeof id !== 'string') {
+    return <div className="flex justify-center items-center h-screen text-xl font-semibold text-red-600">Invalid Meeting ID</div>;
+  }
 
   const { call, isCallLoading } = useGetCallById(id);
 
