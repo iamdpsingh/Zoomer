@@ -34,7 +34,7 @@ const MeetingCard = ({
   return (
     <section className="grid grid-cols-1 lg:grid-cols-3 gap-4 max-w-7xl mx-auto w-full">
       <WobbleCard
-          containerClassName="col-span-1 lg:col-span-3 bg-blue-900 min-h-[500px] lg:min-h-[600px] xl:min-h-[300px]"
+          containerClassName="col-span-1 lg:col-span-3 bg-charcoal-2 min-h-[500px] lg:min-h-[600px] xl:min-h-[300px]"
           className=""
         >
       <article className="flex flex-col gap-5">
@@ -59,13 +59,13 @@ const MeetingCard = ({
               style={{ top: 0, left: index * 28 }}
             />
           ))}
-          <div className="flex-center absolute left-[136px] size-10 rounded-full border-[5px] border-dark-3 bg-dark-4">
+          <div className="flex-center absolute left-[136px] size-10 rounded-full border-[5px] border-charcoal-2 bg-rust-1">
             +5
           </div>
         </div>
         {!isPreviousMeeting && (
           <div className="flex gap-2">
-            <Button onClick={handleClick} className="rounded bg-blue-1 px-6">
+            <Button onClick={handleClick} className="rounded bg-[#4A4A4A] px-6">
               {buttonIcon1 && (
                 <Image src={buttonIcon1} alt="feature" width={20} height={20} />
               )}
@@ -78,7 +78,7 @@ const MeetingCard = ({
                   title: "Link Copied",
                 });
               }}
-              className="bg-dark-4 px-6 hover:bg-dark-3"
+              className="bg-[#4A4A4A] px-6 hover:bg-rust-1"
             >
               <Image
                 src="/icons/copy.svg"

@@ -98,28 +98,28 @@ const MeetingTypeList = () => {
         img="/icons/add-meeting.svg"
         title="New Meeting"
         description="Start an instant meeting"
-        containerClassName="bg-blue-600"
+        containerClassName="bg-blue-900"
         handleClick={() => setMeetingState('isInstantMeeting')}
       />
       <HomeCard
         img="/icons/join-meeting.svg"
         title="Join Meeting"
         description="via invitation link"
-        containerClassName="bg-blue-600"
+        containerClassName="bg-blue-900"
         handleClick={() => setMeetingState('isJoiningMeeting')}
       />
       <HomeCard
         img="/icons/schedule.svg"
         title="Schedule Meeting"
         description="Plan your meeting"
-        containerClassName="bg-blue-600"
+        containerClassName="bg-blue-900"
         handleClick={() => setMeetingState('isScheduleMeeting')}
       />
       <HomeCard
         img="/icons/recordings.svg"
         title="View Recordings"
         description="Meeting Recordings"
-        containerClassName="bg-blue-600"
+        containerClassName="bg-blue-900"
         handleClick={() => router.push('/home/recordings')}
       />
 
@@ -137,7 +137,7 @@ const MeetingTypeList = () => {
           <label className='text-base text-normal leading-[22px] text-sky-2'>
             Add a discription
           </label>
-          <Textarea className='border-none bg-dark-3 focus-visible:ring-0 focus-visible:ring-offset-0'
+          <Textarea className='border-none bg-[#4A4A4A] focus-visible:ring-0 focus-visible:ring-offset-0'
           onChange={(e)=>{
             setValues({...values, description:e.target.value})
           }}
@@ -156,7 +156,7 @@ const MeetingTypeList = () => {
               timeIntervals={15}
               timeCaption="time"
               dateFormat="MMMM d, yyyy h:mm aa"
-              className="w-full rounded bg-dark-3 p-2 focus:outline-none"
+              className="w-full rounded bg-[#4A4A4A] p-2 focus:outline-none"
             />
           </div>
 
@@ -198,7 +198,7 @@ const MeetingTypeList = () => {
         <Input
           placeholder="Meeting link"
           onChange={(e) => setValues({ ...values, link: e.target.value })}
-          className="border-none bg-dark-3 focus-visible:ring-0 focus-visible:ring-offset-0"
+          className="border-none bg-[#4A4A4A] focus-visible:ring-0 focus-visible:ring-offset-0"
         />
       </MeetingModal>
     </section>

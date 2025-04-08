@@ -30,13 +30,13 @@ const MobileNav = () => {
   <SheetContent side="left" className='border-none bg-charcoal-1'>
   <Link href='/' className='flex items-center gap-1'>
         <Image 
-        src="/icons/logo.svg"
+        src="/icons/logo-2.svg"
         width={32}
         height={32}
-        alt='Talk Lounge Logo'
+        alt='Zoomer Logo'
         className='max-sm:size-10'
         />
-        <p className='"text-[26px] font-extrabold text-white '>ZOOMER</p>
+        <p className='"text-[26px] font-extrabold text-white max-sm:hidden'>ZOOMER</p>
        </Link>
 
        <div className='flex h-[calc(100vh-72px)] flex-col justify-between overflow-y-auto'> 
@@ -55,10 +55,11 @@ const MobileNav = () => {
               className={cn(
                 'flex gap-4 itemss-center p-4 rounded-lg w-full max-w-60',
                 {
-                  'bg-purple-1': isActive,
-                  'hover:bg-purple-2': !isActive,
+                  'bg-rust-1': isActive,
+                  'hover:bg-rust-1/80': !isActive,
                   'text-black': isActive,
                   'hover:text-black': !isActive,
+                  'hover:bg-opacity-90': !isActive
                 }
               )}
             >

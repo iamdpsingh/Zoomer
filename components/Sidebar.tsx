@@ -28,7 +28,7 @@ const Sidebar=()=>{
         >
           <div className='flex flex-col gap-4 w-full'>
             {sidebarLinks.map((link)=>{
-              const isActive=path===link.route || (path.startsWith(link.route) && link.route!=='/');
+              const isActive=path===link.route || (path.startsWith(link.route) && link.route !== '/home');
 
               return(
                 <Link
