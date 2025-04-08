@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: "Zoomer",
   description: "By Anubhav and Team || Zoom Clone App",
   icons:{
-    icon: '/icons/logo.svg'
+    icon: '/icons/logo-2.svg'
   }
 };
 

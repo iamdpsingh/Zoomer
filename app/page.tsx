@@ -33,24 +33,49 @@ export default function Page() {
         </div>
       </div>
       
-      <div className="text-center max-w-4xl mb-12">
-        <h2 className="text-3xl font-semibold mb-6">Meet Our Visionary Team</h2>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {[
-            { name: "Anubhav Singh", role: "Team Lead-handled Frontend/Clerk",img: "/images3.jpg",scale:'scale-120'},
-            { name: "Dhruv Pratap Singh", role: "Video Conferencing-handled Streamio", img: "/images/Dhruv-img.png",scale:'scale-120' },
-            { name: "Anuj Kaushik", role: "Head of Security",img: "/images2.jpg",scale:'scale-120'},
-            { name: "Saksham Agrawal", role: "Lead Designer",img: "/images1.jpg",scale:'scale-120'},
-          ].map((member, index) => (
-            <div key={index} 
-            className="bg-white bg-opacity-10 p-6 rounded-xl text-center shadow-lg transform transition duration-300 hover:scale-110">
-              <Image src={member.img} alt={member.name} width={100} height={100} className="rounded-full mx-auto mb-4" />
-              <h3 className="text-xl font-semibold mb-2 text-yellow-300">{member.name}</h3>
-              <p className="text-gray-300">{member.role}</p>
-            </div>
-          ))}
-        </div>
+      <div className="text-center max-w-6xl mx-auto mb-16">
+  <h2 className="text-4xl font-bold mb-10 text-yellow-300">Meet Our Visionary Team</h2>
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
+    {[
+      {
+        name: "Anubhav Singh",
+        role: "Frontend / Authentication / Video Conferencing",
+        img: "/images3.jpg",
+      },
+      {
+        name: "Dhruv Pratap Singh",
+        role: "Frontend / Authentication / Video Conferencing",
+        img: "/images4.jpg",
+      },
+      {
+        name: "Anuj Kaushik",
+        role: "",
+        img: "/images2.jpg",
+      },
+      {
+        name: "Saksham Agrawal",
+        role: "",
+        img: "/images1.jpg",
+      },
+    ].map((member, index) => (
+      <div
+        key={index}
+        className="bg-white bg-opacity-10 p-8 rounded-2xl text-center shadow-xl transform transition duration-300 hover:scale-105"
+      >
+        <Image
+          src={member.img}
+          alt={member.name}
+          width={140}
+          height={140}
+          className="rounded-full mx-auto mb-5 border-4 border-yellow-300"
+        />
+        <h3 className="text-2xl font-semibold mb-2 text-yellow-300">{member.name}</h3>
+        <p className="text-gray-200 text-sm">{member.role}</p>
       </div>
+    ))}
+  </div>
+</div>
+
       <footer className="mt-auto text-center text-sm text-gray-400">
         <p>&copy; {new Date().getFullYear()} Zoomer. Redefining communication for the future.</p>
       </footer>
