@@ -16,7 +16,7 @@ const Home = () => {
       setTime(current.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
     }, 1000);
 
-    return () => clearInterval(interval); // cleanup
+    return () => clearInterval(interval);
   }, []);
 
   return (

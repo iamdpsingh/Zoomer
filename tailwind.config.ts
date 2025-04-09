@@ -88,7 +88,7 @@ const config = {
         },
       },
       backgroundImage: {
-        hero: "url('/images/hero-background.png')",
+        hero: "url('/images/laptop-with-glowing-screen-table-dark-top-view-copy-space.jpg')",
       },
       borderRadius: {
         lg: "var(--radius)",
