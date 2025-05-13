@@ -37,4 +37,5 @@ export const avatarImages = [
 
 export const membersImages=[
     '/images/Dhruv-img.png',
+    '/images/IMG20250513173614.jpg'
 ]
