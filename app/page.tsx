@@ -45,7 +45,7 @@ export default function Page() {
       {
         name: "Dhruv Pratap Singh",
         role: "Frontend / Authentication / Video Conferencing",
-        img: "/IMG20250513173614.jpg",
+        img: "/images/IMG20250513173614.jpg",
       },
       {
         name: "Anuj Kaushik",
