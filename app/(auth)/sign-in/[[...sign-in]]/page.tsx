@@ -3,6 +3,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowLeft, CheckCircle2, Shield, Sparkles, Video, Users, Zap, Lock } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+
 export default function SignInPage() {
   return (
     <main className="relative flex min-h-screen w-full flex-col items-center justify-between bg-[#080C15] text-white overflow-hidden selection:bg-indigo-500/30 selection:text-indigo-200">
