@@ -90,7 +90,23 @@ const CallList = ({ type }: { type: 'ended' | 'upcoming' | 'recordings' }) => {
   const emptyInfo = getNoCallsMessage();
   const EmptyIcon = emptyInfo.icon;
 
-  const baseUrl = typeof window !== 'undefined' ? window.location.origin : (process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000');
+  const [origin, setOrigin] = useState<string>('');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setOrigin(window.location.origin);
+    }
+  }, []);
+
+  const baseUrl =
+    origin ||
+    process.env.NEXT_PUBLIC_BASE_URL ||
+    (process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}`
+      : process.env.NEXT_PUBLIC_VERCEL_URL
+      ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+      : '');
+
 
   return (
     <div>

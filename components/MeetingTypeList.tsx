@@ -4,7 +4,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { useUser } from '@clerk/nextjs';
 import { Call, useStreamVideoClient } from '@stream-io/video-react-sdk';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ReactDatePicker from "react-datepicker";
 import HomeCard from './HomeCard';
 import MeetingModal from './MeetingModal';
@@ -102,9 +102,27 @@ const MeetingTypeList = () => {
     }
   };
 
-  const meetingLink = typeof window !== 'undefined'
-    ? `${window.location.origin}/meeting/${callDetail?.id}`
-    : `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/meeting/${callDetail?.id}`;
+  const [origin, setOrigin] = useState<string>('');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setOrigin(window.location.origin);
+    }
+  }, []);
+
+  const baseUrl =
+    origin ||
+    process.env.NEXT_PUBLIC_BASE_URL ||
+    (process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}`
+      : process.env.NEXT_PUBLIC_VERCEL_URL
+      ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+      : '');
+
+  const meetingLink = baseUrl
+    ? `${baseUrl}/meeting/${callDetail?.id}`
+    : `/meeting/${callDetail?.id}`;
+
 
   return (
     <section className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">

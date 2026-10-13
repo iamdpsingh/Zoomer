@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useStreamVideoClient } from "@stream-io/video-react-sdk";
 import { useRouter } from "next/navigation";
@@ -23,7 +24,7 @@ const InfoRow = ({
         <span className="text-xs font-semibold uppercase tracking-wider text-indigo-400">
           {label}
         </span>
-        <span className="truncate text-sm sm:text-base font-medium text-slate-100">
+        <span className="truncate text-sm sm:text-base font-medium text-slate-100 select-all">
           {value}
         </span>
       </div>
@@ -48,6 +49,13 @@ const PersonalRoom = () => {
   const router = useRouter();
   const { toast } = useToast();
   const client = useStreamVideoClient();
+  const [origin, setOrigin] = useState<string>("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setOrigin(window.location.origin);
+    }
+  }, []);
 
   const meetingId = user?.id || '';
   const { call } = useGetCallById(meetingId);
@@ -66,9 +74,20 @@ const PersonalRoom = () => {
     router.push(`/meeting/${meetingId}?personal=true`);
   };
 
-  const baseUrl = typeof window !== 'undefined' ? window.location.origin : (process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000');
-  const meetingLink = `${baseUrl}/meeting/${meetingId}?personal=true`;
+  const baseUrl =
+    origin ||
+    process.env.NEXT_PUBLIC_BASE_URL ||
+    (process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}`
+      : process.env.NEXT_PUBLIC_VERCEL_URL
+      ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+      : "");
+
+  const meetingLink = baseUrl
+    ? `${baseUrl}/meeting/${meetingId}?personal=true`
+    : `/meeting/${meetingId}?personal=true`;
   const roomTopic = user?.firstName ? `${user.firstName}'s Personal Room` : (user?.username ? `${user.username}'s Personal Room` : 'Personal Meeting Room');
+
 
   return (
     <section className="flex size-full flex-col gap-8 text-white">
