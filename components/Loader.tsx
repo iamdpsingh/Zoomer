@@ -1,45 +1,21 @@
-import Image from 'next/image';
+import { Loader2 } from 'lucide-react';
 
 const Loader = () => {
   return (
-    <div className="flex flex-col items-center justify-center h-screen w-full bg-charcoal-1 dark:bg-[#121212]">
-      <Image
-        src="/icons/loading-circle.svg"
-        alt="Loading..."
-        width={70}
-        height={70}
-        className="animate-spin mb-7"
-      />
-      <p className="text-3xl font-extrabold text-rust-1 dark:text-gray-200">
-        Loading
-        <span className="dot-animation inline-block w-2">.</span>
-        <span className="dot-animation inline-block w-2 delay-200">.</span>
-        <span className="dot-animation inline-block w-2 delay-400">.</span>
-      </p>
+    <div className="flex flex-col items-center justify-center h-screen w-full bg-[#080C15] text-white">
+      <div className="relative flex items-center justify-center">
+        <div className="absolute size-16 rounded-full bg-indigo-500/20 blur-xl animate-pulse" />
+        <Loader2 className="size-10 animate-spin text-indigo-500" />
+      </div>
 
-      <style jsx>{`
-        .dot-animation {
-          animation: blink 1.4s infinite;
-          opacity: 0;
-        }
-
-        .dot-animation.delay-200 {
-          animation-delay: 0.2s;
-        }
-
-        .dot-animation.delay-400 {
-          animation-delay: 0.4s;
-        }
-
-        @keyframes blink {
-          0%, 20% {
-            opacity: 0;
-          }
-          30%, 100% {
-            opacity: 1;
-          }
-        }
-      `}</style>
+      <div className="mt-5 flex items-center gap-1.5 text-base font-semibold tracking-wide text-slate-300">
+        <span>Connecting to Zoomer</span>
+        <span className="inline-flex gap-1 ml-0.5">
+          <span className="size-1 rounded-full bg-indigo-400 animate-bounce [animation-delay:-0.3s]" />
+          <span className="size-1 rounded-full bg-indigo-400 animate-bounce [animation-delay:-0.15s]" />
+          <span className="size-1 rounded-full bg-indigo-400 animate-bounce" />
+        </span>
+      </div>
     </div>
   );
 };

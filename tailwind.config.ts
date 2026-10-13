@@ -10,7 +10,7 @@ const config = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
-	],
+  ],
   prefix: "",
   theme: {
     container: {
@@ -22,36 +22,45 @@ const config = {
     },
     extend: {
       colors: {
-		charcoal:{
-			1:'#2a2a2a',
-			2:'#2e2e2e'
-		},
-		rust:{
-			1:'#763626'
-		},
-        dark:{
-          1: '#240046',
-          2: '#10002b',
-          3: '#5a189a',
-          4: '#1E2757',
+        charcoal: {
+          1: '#0B0F19',
+          2: '#111827',
+          3: '#1F2937',
         },
-        purple:{
-          1:'#9d4edd',
-          2:"#c8b6ff"
+        rust: {
+          1: '#6366F1',
         },
-        sky:{
-          1:'#C9DDFF',
-          2: '#ECF0FF',
-          3: '#F5FCFF',
+        brand: {
+          50: '#eef2ff',
+          100: '#e0e7ff',
+          400: '#818cf8',
+          500: '#6366f1',
+          600: '#4f46e5',
+          700: '#4338ca',
+        },
+        dark: {
+          1: '#0B0F19',
+          2: '#070A10',
+          3: '#1F2937',
+          4: '#111827',
+        },
+        purple: {
+          1: '#8B5CF6',
+          2: '#A78BFA',
+        },
+        sky: {
+          1: '#93C5FD',
+          2: '#E0F2FE',
+          3: '#F0F9FF',
         },
         orange: {
-          1: '#FF742E',
+          1: '#F97316',
         },
         pink: {
-          1: '#ff5d8f',
+          1: '#EC4899',
         },
         yellow: {
-          1: '#F9A90E',
+          1: '#F59E0B',
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -88,7 +97,8 @@ const config = {
         },
       },
       backgroundImage: {
-        hero: "url('/images/laptop-with-glowing-screen-table-dark-top-view-copy-space.jpg')",
+        hero: "linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(139, 92, 246, 0.1) 50%, rgba(15, 23, 42, 0.8) 100%)",
+        "mesh-dark": "radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.18) 0px, transparent 50%), radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.15) 0px, transparent 50%)",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -137,6 +147,10 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        pulseGlow: {
+          "0%, 100%": { opacity: "0.6", transform: "scale(1)" },
+          "50%": { opacity: "0.9", transform: "scale(1.02)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -146,20 +160,21 @@ const config = {
         third: "moveInCircle 40s linear infinite",
         fourth: "moveHorizontal 40s ease infinite",
         fifth: "moveInCircle 20s ease infinite",
+        "pulse-glow": "pulseGlow 4s ease-in-out infinite",
       },
     },
   },
   plugins: [require("tailwindcss-animate"), addVariablesForColors],
-} satisfies Config
+} satisfies Config;
 
-export default config
+export default config;
 
 function addVariablesForColors({ addBase, theme }: any) {
   let allColors = flattenColorPalette(theme("colors"));
   let newVars = Object.fromEntries(
     Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
   );
- 
+
   addBase({
     ":root": newVars,
   });
