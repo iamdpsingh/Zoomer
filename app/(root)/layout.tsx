@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   }
 };
 
+export const dynamic = 'force-dynamic';
 
 const RootLayout  = ({children}:{children:ReactNode}) => {
   return (
