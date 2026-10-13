@@ -50,9 +50,13 @@ const Navbar = () => {
             <div className="flex items-center p-0.5 rounded-full bg-white/[0.05] border border-white/10 hover:border-white/20 transition-all shadow-inner">
               <UserButton 
                 afterSignOutUrl="/"
+                userProfileMode="modal"
                 appearance={{
                   elements: {
                     userButtonAvatarBox: "size-8",
+                    userButtonPopoverCard: "bg-[#0c1322]/95 border border-indigo-400/25 backdrop-blur-2xl shadow-2xl rounded-2xl p-1.5",
+                    userButtonPopoverActionButton: "rounded-xl text-slate-300 hover:text-white hover:bg-white/[0.06] transition-colors py-2 px-3",
+                    userButtonPopoverActionButtonText: "text-sm font-medium",
                   }
                 }}
               />

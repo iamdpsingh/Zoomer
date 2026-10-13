@@ -98,10 +98,9 @@ export default function SignInPage() {
         <div className="flex w-full max-w-[460px] flex-col items-center justify-center">
           <div className="relative w-full">
             {/* Iridescent outer glow aura */}
-            <div className="pointer-events-none absolute -inset-1 rounded-[2.25rem] bg-gradient-to-r from-indigo-500/30 via-violet-500/25 to-cyan-500/20 blur-xl opacity-90" />
+            <div className="pointer-events-none absolute -inset-1.5 rounded-[2.25rem] bg-gradient-to-r from-indigo-500/35 via-violet-500/25 to-cyan-500/20 blur-xl opacity-90" />
             
-            {/* Glass enclosure card */}
-            <div className="relative w-full rounded-[2rem] border border-white/[0.12] bg-[#090D18]/90 p-1 shadow-2xl backdrop-blur-3xl">
+            <div className="relative w-full">
               <SignIn routing="path" path="/sign-in" signUpUrl="/sign-up" />
             </div>
           </div>
