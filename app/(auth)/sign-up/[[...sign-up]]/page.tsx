@@ -86,9 +86,27 @@ export default function SignUpPage() {
 
         {/* Right Column: Sleek Auth Box */}
         <div className="flex w-full max-w-[440px] flex-col items-center justify-center">
+          {/* Mobile-only branding banner */}
+          <div className="lg:hidden flex flex-col items-center gap-2 mb-6 text-center">
+            <Link href="/" className="flex items-center gap-2.5">
+              <div className="flex size-10 items-center justify-center rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 shadow-md shadow-indigo-500/30">
+                <Image
+                  src="/icons/logo-2.svg"
+                  width={22}
+                  height={22}
+                  alt="Zoomer"
+                  className="brightness-0 invert"
+                />
+              </div>
+              <span className="text-xl font-black tracking-tight text-white">ZOOMER</span>
+            </Link>
+            <p className="text-xs text-slate-400">Create your free enterprise account</p>
+          </div>
+
           <div className="relative w-full">
-            <div className="pointer-events-none absolute -inset-1 rounded-3xl bg-gradient-to-r from-indigo-500/20 to-cyan-500/20 blur-xl opacity-75" />
-            <div className="relative">
+            {/* Ambient glow behind card */}
+            <div className="pointer-events-none absolute -inset-2 rounded-[2rem] bg-gradient-to-r from-indigo-500/25 via-violet-500/20 to-cyan-500/20 blur-2xl opacity-80" />
+            <div className="relative w-full flex justify-center">
               <SignUp routing="path" path="/sign-up" signInUrl="/sign-in" />
             </div>
           </div>
