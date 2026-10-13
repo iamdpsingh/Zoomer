@@ -35,7 +35,7 @@ export const avatarImages = [
     '/images/avatar-5.png',
   ];
 
-export const membersImages=[
+export const membersImages = [
     '/images/Dhruv-img.png',
-    '/images/IMG20250513173614.jpg'
-]
+    '/images/anubhav-avatar.jpg',
+];

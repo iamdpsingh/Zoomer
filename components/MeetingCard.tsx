@@ -30,7 +30,7 @@ const MeetingCard = ({
   const { toast } = useToast();
 
   return (
-    <article className="group relative flex flex-col justify-between rounded-2xl border border-white/[0.08] bg-gradient-to-b from-slate-900/90 to-[#0A0E1A] p-6 shadow-lg transition-all duration-300 hover:border-white/20 hover:shadow-indigo-500/5">
+    <article className="group relative flex flex-col justify-between rounded-2xl border border-white/[0.09] bg-gradient-to-b from-[#0e1628]/85 via-[#0b1120]/90 to-[#070b14]/95 p-6 shadow-xl backdrop-blur-xl transition-all duration-300 hover:border-indigo-500/35 hover:shadow-2xl hover:shadow-indigo-500/10 hover:-translate-y-1">
       {/* Top Header: Icon & Category */}
       <div className="flex flex-col gap-4">
         <div className="flex items-center justify-between">

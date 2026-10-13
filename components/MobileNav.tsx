@@ -20,13 +20,13 @@ const MobileNav = () => {
     <section className="sm:hidden">
       <Sheet>
         <SheetTrigger asChild>
-          <button className="flex items-center justify-center size-9 rounded-xl bg-white/[0.06] text-white hover:bg-white/[0.12] transition-colors">
+          <button className="flex items-center justify-center size-9 rounded-xl bg-white/[0.06] border border-white/10 text-white hover:bg-white/[0.12] transition-colors shadow-sm">
             <Menu className="size-4 text-slate-200" />
             <span className="sr-only">Toggle navigation</span>
           </button>
         </SheetTrigger>
 
-        <SheetContent side="left" className="border-0 bg-[#090D18]/95 backdrop-blur-2xl p-6 text-white w-72 shadow-2xl">
+        <SheetContent side="left" className="border-r border-indigo-400/15 bg-[#090e1c]/95 backdrop-blur-2xl p-6 text-white w-72 shadow-2xl">
           <Link href="/home" className="flex items-center gap-3 mb-8">
             <div className="flex items-center justify-center size-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 shadow-md shadow-indigo-500/20">
               <Image 

@@ -28,7 +28,7 @@ export default function Page() {
     {
       name: "Anubhav Singh",
       role: "Frontend & Video Conferencing",
-      img: "/images/IMG20250513173614.jpg",
+      img: "/images/anubhav-avatar.jpg",
       tag: "Core Contributor",
     },
     {
@@ -56,7 +56,7 @@ export default function Page() {
 
       {/* Top Floating Navbar */}
       <header className="sticky top-3 z-50 mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="backdrop-blur-2xl bg-[#090D18]/75 rounded-2xl shadow-2xl shadow-black/40 px-6 h-16 sm:h-20 flex items-center justify-between transition-all">
+        <div className="backdrop-blur-2xl backdrop-saturate-150 bg-[#0c1322]/80 border border-indigo-400/20 rounded-2xl shadow-[inset_0_1px_1px_0_rgba(255,255,255,0.15),0_20px_45px_rgba(0,0,0,0.5),0_0_35px_rgba(99,102,241,0.08)] px-6 h-16 sm:h-20 flex items-center justify-between transition-all">
           <Link href="/" className="flex items-center gap-3 group">
             <div className="relative flex items-center justify-center size-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 shadow-lg shadow-indigo-500/25 group-hover:scale-105 transition-transform duration-200">
               <Image
