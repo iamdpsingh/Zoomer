@@ -3,14 +3,17 @@ import { Call, useStreamVideoClient } from '@stream-io/video-react-sdk';
 import { useEffect, useState } from 'react';
 
 export const useGetCalls = () => {
-    const [calls, setCalls] = useState<Call[]>();
+    const [calls, setCalls] = useState<Call[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const client = useStreamVideoClient();
     const { user } = useUser();
 
   useEffect(() => {
     const loadCalls = async () => {
-      if (!client || !user?.id) return;
+      if (!client || !user?.id) {
+        setIsLoading(false);
+        return;
+      }
       
       setIsLoading(true);
 
@@ -26,9 +29,10 @@ export const useGetCalls = () => {
           },
         });
 
-        setCalls(calls);
+        setCalls(calls || []);
       } catch (error) {
-        console.error(error);
+        console.error("Error querying calls:", error);
+        setCalls([]);
       } finally {
         setIsLoading(false);
       }
@@ -43,12 +47,12 @@ export const useGetCalls = () => {
     const startsAt = call.state?.startsAt;
     const endedAt = call.state?.endedAt;
     return (startsAt && new Date(startsAt) < now) || !!endedAt;
-  });
+  }) || [];
 
   const upcomingCalls = calls?.filter((call: Call) => {
     const startsAt = call.state?.startsAt;
     return startsAt && new Date(startsAt) > now;
-  });
+  }) || [];
 
   return { endedCalls, upcomingCalls, callRecordings: calls, isLoading };
 };

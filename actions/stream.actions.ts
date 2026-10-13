@@ -40,6 +40,9 @@ function createStreamUserToken(secret: string, userId: string, exp: number, iat:
 export const tokenProvider = async () => {
   const user = await currentUser();
 
+  const apiKey = process.env.NEXT_PUBLIC_STREAM_API_KEY;
+  const apiSecret = process.env.STREAM_SECRET_KEY;
+
   if (!user) throw new Error("User not found or not authenticated");
   if (!apiKey) throw new Error("Stream api key not found || No api key");
   if (!apiSecret) throw new Error("Stream secret not found || No secret");

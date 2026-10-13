@@ -6,7 +6,6 @@ import {
   CheckCircle2,
   Copy,
   Film,
-  Github,
   Lock,
   Mic,
   Monitor,
@@ -452,15 +451,8 @@ export default function Page() {
               <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
               <span>All Systems Operational</span>
             </div>
-            <Link
-              href="https://github.com/iamdpsingh/Zoomer"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 hover:text-white transition-colors"
-            >
-              <Github className="size-4" />
-              <span>GitHub</span>
-            </Link>
+            <span className="text-slate-500">•</span>
+            <span className="text-slate-400">Encrypted End-to-End</span>
           </div>
         </div>
       </footer>
