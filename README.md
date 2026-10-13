@@ -1,10 +1,13 @@
 # Zoomer — Enterprise-Grade Video Collaboration Platform 🎥⚡
 
+[![Live Demo](https://img.shields.io/badge/Live_Demo-zoomer--dps.vercel.app-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://zoomer-dps.vercel.app/)
 [![Next.js](https://img.shields.io/badge/Next.js-15.1.6-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
 [![Clerk](https://img.shields.io/badge/Auth-Clerk-6C47FF?style=for-the-badge&logo=clerk)](https://clerk.com/)
 [![Stream Video](https://img.shields.io/badge/WebRTC-Stream_Video-005FFF?style=for-the-badge&logo=stream)](https://getstream.io/video/)
+
+> 🚀 **Live Demo:** Experience the platform live at **[https://zoomer-dps.vercel.app/](https://zoomer-dps.vercel.app/)**
 
 Zoomer is a high-performance, real-time video conferencing web application architected with **Next.js 15 (App Router)**, **Stream Video React & Node SDKs**, **Clerk Authentication**, and **Tailwind CSS**. It delivers ultra-low-latency HD audio/video communication, dynamic room layouts, personal rooms, cloud recording playback, and enterprise-grade security right out of the browser.
 
