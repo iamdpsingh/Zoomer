@@ -1,5 +1,6 @@
 import { Toaster } from "@/components/ui/toaster";
 import { ClerkProvider } from "@clerk/nextjs";
+import { shadcn } from "@clerk/ui/themes";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -7,14 +8,14 @@ import "./globals.css";
 import "@stream-io/video-react-sdk/dist/css/styles.css";
 import "react-datepicker/dist/react-datepicker.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
-  title: "Zoomer",
-  description: "By Anubhav and Team || Zoom Clone App",
+  title: "Zoomer — Next-Gen Video Meetings",
+  description: "Ultra low-latency video meetings, instant rooms, screen sharing, and cloud recordings for modern teams.",
   icons: {
-    icon: '/icons/logo-2.svg'
-  }
+    icon: '/icons/logo-2.svg',
+  },
 };
 
 export default function RootLayout({
@@ -23,29 +24,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <ClerkProvider
-        appearance={{
-          layout: {
-            socialButtonsVariant: "iconButton",
-            logoImageUrl: "/icons/logo-2.svg",
-          },
-          variables: {
-            colorText: "#1E1E1E",  
-            colorPrimary: "#763626",   
-            colorBackground: "#FAF4ED",
-            colorInputBackground: "#F5EEDC",  
-            colorInputText: "#1E1E1E",   
-            borderRadius: "10px",
-            fontSize: "16px",
-          },
-        }}
+    <html lang="en" className="dark">
+      <body
+        className={`${inter.className} min-h-screen bg-[#080C15] text-white antialiased selection:bg-indigo-500/30 selection:text-indigo-200`}
       >
-        <body className={`${inter.className} bg-charcoal-1`}>
+        <ClerkProvider
+          appearance={{
+            baseTheme: shadcn as any,
+            layout: {
+              socialButtonsVariant: "iconButton",
+              logoImageUrl: "/icons/logo-2.svg",
+            },
+            variables: {
+              colorPrimary: "#6366F1",
+            },
+          }}
+        >
           {children}
           <Toaster />
-        </body>
-      </ClerkProvider>
+        </ClerkProvider>
+      </body>
     </html>
   );
 }
