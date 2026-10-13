@@ -13,12 +13,15 @@ import { VideoOff, ArrowLeft } from 'lucide-react';
 
 const Meeting = () => {
   const params = useParams();
-  const id = params?.id;
+  const rawId = params?.id;
+  const id = Array.isArray(rawId) ? rawId[0] : (typeof rawId === 'string' ? rawId : '');
 
   const { isLoaded } = useUser();
   const [isSetupComplete, setIsSetupComplete] = useState(false);
+  const client = useStreamVideoClient();
+  const { call, isCallLoading } = useGetCallById(id);
 
-  if (typeof id !== 'string') {
+  if (!id) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center bg-[#080C15] p-6 text-white text-center">
         <div className="max-w-md rounded-3xl border border-rose-500/30 bg-slate-900/90 p-8 shadow-2xl">
@@ -38,9 +41,6 @@ const Meeting = () => {
       </div>
     );
   }
-
-  const client = useStreamVideoClient();
-  const { call, isCallLoading } = useGetCallById(id);
 
   if (!isLoaded || isCallLoading) return <Loader />;
 

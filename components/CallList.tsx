@@ -15,6 +15,13 @@ const CallList = ({ type }: { type: 'ended' | 'upcoming' | 'recordings' }) => {
   const router = useRouter();
   const { toast } = useToast();
   const [recordings, setRecordings] = useState<CallRecording[]>([]);
+  const [origin, setOrigin] = useState<string>('');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setOrigin(window.location.origin);
+    }
+  }, []);
 
   const getCalls = () => {
     switch (type) {
@@ -62,16 +69,16 @@ const CallList = ({ type }: { type: 'ended' | 'upcoming' | 'recordings' }) => {
     const fetchRecordings = async () => {
       try {
         const callData = await Promise.all(
-          callRecordings?.map((meeting) => meeting.queryRecordings()) ?? [],
+          callRecordings?.map((meeting) => (meeting?.queryRecordings ? meeting.queryRecordings() : Promise.resolve({ recordings: [] }))) ?? [],
         );
 
         const recordings = callData
-          .filter((call) => call.recordings.length > 0)
+          .filter((call) => call && Array.isArray(call.recordings) && call.recordings.length > 0)
           .flatMap((call) => call.recordings);
 
         setRecordings(recordings);
       } catch (error) {
-        console.error(error);
+        console.error("Error fetching recordings:", error);
         toast({
           title: "Notice",
           description: "Could not fetch recordings at this time. Please try again later.",
@@ -90,14 +97,6 @@ const CallList = ({ type }: { type: 'ended' | 'upcoming' | 'recordings' }) => {
   const emptyInfo = getNoCallsMessage();
   const EmptyIcon = emptyInfo.icon;
 
-  const [origin, setOrigin] = useState<string>('');
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setOrigin(window.location.origin);
-    }
-  }, []);
-
   const baseUrl =
     origin ||
     process.env.NEXT_PUBLIC_BASE_URL ||
@@ -106,7 +105,6 @@ const CallList = ({ type }: { type: 'ended' | 'upcoming' | 'recordings' }) => {
       : process.env.NEXT_PUBLIC_VERCEL_URL
       ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
       : '');
-
 
   return (
     <div>
@@ -117,7 +115,21 @@ const CallList = ({ type }: { type: 'ended' | 'upcoming' | 'recordings' }) => {
             const callItem = meeting as Call;
             const recItem = meeting as CallRecording;
 
-            const uniqueKey = isRecording ? (recItem.url || `rec-${index}`) : (callItem.id || `call-${index}`);
+            const uniqueKey = isRecording
+              ? (recItem?.url || `rec-${index}`)
+              : (callItem?.id || `call-${index}`);
+
+            const meetingTitle = isRecording
+              ? (recItem?.filename?.substring(0, 30) || 'Recorded Session')
+              : (callItem?.state?.custom?.description || 'Zoomer Meeting');
+
+            const meetingDate = isRecording
+              ? (recItem?.start_time ? new Date(recItem.start_time).toLocaleString() : 'Recent')
+              : (callItem?.state?.startsAt ? new Date(callItem.state.startsAt).toLocaleString() : 'Scheduled');
+
+            const meetingLink = isRecording
+              ? (recItem?.url || '')
+              : `${baseUrl}/meeting/${callItem?.id || ''}`;
 
             return (
               <MeetingCard
@@ -129,30 +141,20 @@ const CallList = ({ type }: { type: 'ended' | 'upcoming' | 'recordings' }) => {
                       ? '/icons/upcoming.svg'
                       : '/icons/recordings.svg'
                 }
-                title={
-                  callItem?.state?.custom?.description ||
-                  recItem?.filename?.substring(0, 30) ||
-                  'Zoomer Meeting'
-                }
-                date={
-                  callItem?.state?.startsAt
-                    ? new Date(callItem.state.startsAt).toLocaleString()
-                    : recItem?.start_time
-                    ? new Date(recItem.start_time).toLocaleString()
-                    : 'Recent'
-                }
+                title={meetingTitle}
+                date={meetingDate}
                 isPreviousMeeting={type === 'ended'}
-                link={
-                  isRecording
-                    ? recItem.url
-                    : `${baseUrl}/meeting/${callItem.id}`
-                }
+                link={meetingLink}
                 buttonIcon1={isRecording ? '/icons/play.svg' : undefined}
                 buttonText={isRecording ? 'Play Recording' : 'Start Meeting'}
                 handleClick={
                   isRecording
-                    ? () => router.push(`${recItem.url}`)
-                    : () => router.push(`/meeting/${callItem.id}`)
+                    ? () => {
+                        if (recItem?.url) router.push(recItem.url);
+                      }
+                    : () => {
+                        if (callItem?.id) router.push(`/meeting/${callItem.id}`);
+                      }
                 }
               />
             );
@@ -160,7 +162,7 @@ const CallList = ({ type }: { type: 'ended' | 'upcoming' | 'recordings' }) => {
         </div>
       ) : (
         <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-white/[0.1] bg-slate-900/30 p-12 text-center backdrop-blur-sm">
-          <div className="flex size-16 items-center justify-center rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 mb-4">
+          <div className="flex size-16 items-center justify-center rounded-2xl bg-indigo-500/10 border border-indigo-500/25 text-indigo-400 mb-4">
             <EmptyIcon className="size-8" />
           </div>
           <h3 className="text-xl font-bold text-white mb-2">{emptyInfo.title}</h3>

@@ -33,9 +33,17 @@ export default function Error({
           Something went wrong
         </h1>
 
-        <p className="mt-2 text-sm text-slate-300 leading-relaxed mb-8">
+        <p className="mt-2 text-sm text-slate-300 leading-relaxed mb-4">
           An unexpected error occurred while rendering this session. You can retry or head back to the dashboard.
         </p>
+
+        {error?.message && (
+          <div className="mb-6 rounded-xl border border-rose-500/20 bg-rose-950/40 p-3 text-left">
+            <p className="text-xs font-mono text-rose-300 break-words">
+              {error.message}
+            </p>
+          </div>
+        )}
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
           <Button
