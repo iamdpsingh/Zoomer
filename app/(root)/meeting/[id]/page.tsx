@@ -5,7 +5,7 @@ import MeetingRoom from '@/components/MeetingRoom';
 import MeetingSetup from '@/components/MeetingSetup';
 import { useGetCallById } from '@/hooks/useGetCallById';
 import { useUser } from '@clerk/nextjs';
-import { StreamCall, StreamTheme } from '@stream-io/video-react-sdk';
+import { StreamCall, StreamTheme, useStreamVideoClient } from '@stream-io/video-react-sdk';
 import { useParams } from 'next/navigation';
 import { useState } from 'react';
 import Link from 'next/link';
@@ -39,36 +39,18 @@ const Meeting = () => {
     );
   }
 
+  const client = useStreamVideoClient();
   const { call, isCallLoading } = useGetCallById(id);
 
   if (!isLoaded || isCallLoading) return <Loader />;
 
-  if (!call) {
-    return (
-      <div className="flex min-h-screen flex-col items-center justify-center bg-[#080C15] p-6 text-white text-center">
-        <div className="max-w-md rounded-3xl border border-white/10 bg-slate-900/90 p-8 shadow-2xl backdrop-blur-xl">
-          <div className="mx-auto flex size-14 items-center justify-center rounded-2xl bg-indigo-500/15 border border-indigo-500/25 text-indigo-400 mb-5">
-            <VideoOff className="size-7" />
-          </div>
-          <h2 className="text-2xl font-bold tracking-tight text-white mb-2">Call Not Found</h2>
-          <p className="text-sm text-slate-300 leading-relaxed mb-6">
-            This meeting does not exist or has already concluded. Verify the meeting link and try again.
-          </p>
-          <Link
-            href="/home"
-            className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 px-5 py-2.5 text-sm font-semibold text-white transition-colors shadow-md shadow-indigo-600/30"
-          >
-            <ArrowLeft className="size-4" />
-            <span>Back to Dashboard</span>
-          </Link>
-        </div>
-      </div>
-    );
-  }
+  const activeCall = call || (client ? client.call('default', id) : undefined);
+
+  if (!activeCall) return <Loader />;
 
   return (
     <main className="h-screen w-full bg-[#080C15]">
-      <StreamCall call={call}>
+      <StreamCall call={activeCall}>
         <StreamTheme>
           {!isSetupComplete ? (
             <MeetingSetup setIsSetupComplete={setIsSetupComplete} />

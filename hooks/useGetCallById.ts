@@ -8,25 +8,32 @@ export const useGetCallById = (id:string | string[]) =>{
 
     const client = useStreamVideoClient();
 
-    useEffect(()=>{
-        if(!client) return;
+    useEffect(() => {
+        if (!client) {
+            setIsCallLoading(false);
+            return;
+        }
 
-        const loadCall = async () =>{
-            const { calls } = await client.queryCalls({
-                filter_conditions:{
-                    id
+        const loadCall = async () => {
+            try {
+                const { calls } = await client.queryCalls({
+                    filter_conditions: {
+                        id,
+                    },
+                });
+
+                if (calls.length > 0) {
+                    setCall(calls[0]);
                 }
-            })
-            
-            if(calls.length > 0){
-                setCall(calls[0]);
+            } catch (err) {
+                console.error("Error loading call by id:", err);
+            } finally {
+                setIsCallLoading(false);
             }
+        };
 
-            setIsCallLoading(false)
-         }
-
-        loadCall()
-    }, [client, id]) 
+        loadCall();
+    }, [client, id]); 
 
     return {call, isCallLoading};
 }

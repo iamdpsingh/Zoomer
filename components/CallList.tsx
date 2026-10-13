@@ -130,14 +130,16 @@ const CallList = ({ type }: { type: 'ended' | 'upcoming' | 'recordings' }) => {
                       : '/icons/recordings.svg'
                 }
                 title={
-                  callItem.state?.custom?.description ||
-                  recItem.filename?.substring(0, 30) ||
+                  callItem?.state?.custom?.description ||
+                  recItem?.filename?.substring(0, 30) ||
                   'Zoomer Meeting'
                 }
                 date={
-                  callItem.state?.startsAt?.toLocaleString() ||
-                  recItem.start_time?.toLocaleString() ||
-                  'Recent'
+                  callItem?.state?.startsAt
+                    ? new Date(callItem.state.startsAt).toLocaleString()
+                    : recItem?.start_time
+                    ? new Date(recItem.start_time).toLocaleString()
+                    : 'Recent'
                 }
                 isPreviousMeeting={type === 'ended'}
                 link={

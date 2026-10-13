@@ -64,7 +64,12 @@ const StreamVideoProvider = ({ children }: { children: ReactNode }) => {
     );
   }
 
-  if (!videoClient) return <Loader />;
+  if (!videoClient) {
+    if (isLoaded && !user) {
+      return <>{children}</>;
+    }
+    return <Loader />;
+  }
 
   return <StreamVideo client={videoClient}>{children}</StreamVideo>;
 };

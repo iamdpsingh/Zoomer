@@ -20,6 +20,30 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: '/personal-room',
+        destination: '/home/personal-room',
+      },
+      {
+        source: '/upcoming',
+        destination: '/home/upcoming',
+      },
+      {
+        source: '/previous',
+        destination: '/home/previous',
+      },
+      {
+        source: '/recordings',
+        destination: '/home/recordings',
+      },
+      {
+        source: '/dashboard',
+        destination: '/home',
+      },
+    ];
+  },
 };
 
 export default nextConfig;

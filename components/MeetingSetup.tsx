@@ -90,8 +90,13 @@ const MeetingSetup = ({
         {/* Join CTA */}
         <Button
           className="w-full h-12 rounded-xl bg-indigo-600 hover:bg-indigo-500 font-bold text-sm text-white shadow-lg shadow-indigo-600/30 transition-all duration-200"
-          onClick={() => {
-            call.join();
+          onClick={async () => {
+            try {
+              await call.getOrCreate();
+            } catch (err) {
+              console.warn("Call getOrCreate:", err);
+            }
+            await call.join();
             setIsSetupComplete(true);
           }}
         >
