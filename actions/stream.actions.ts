@@ -1,25 +1,41 @@
 "use server";
 
 import { currentUser } from "@clerk/nextjs/server";
-
-// Polyfill SlowBuffer for Node 22+ / 26+ runtime compatibility with buffer-equal-constant-time
-if (typeof globalThis !== "undefined") {
-  try {
-    const buf = require("node:buffer");
-    if (buf && !buf.SlowBuffer) {
-      buf.SlowBuffer = buf.Buffer;
-    }
-    const buf2 = require("buffer");
-    if (buf2 && !buf2.SlowBuffer) {
-      buf2.SlowBuffer = buf2.Buffer;
-    }
-  } catch {
-    // Ignore in browser or non-Node contexts
-  }
-}
+import crypto from "crypto";
 
 const apiKey = process.env.NEXT_PUBLIC_STREAM_API_KEY;
 const apiSecret = process.env.STREAM_SECRET_KEY;
+
+/**
+ * Generates an authenticated JWT user token for the Stream Video SDK.
+ * Matches Stream Video's specification (HS256 HMAC-SHA256 signed with STREAM_SECRET_KEY)
+ * using Node.js native crypto to eliminate archaic buffer/jwa dependency crashes in Node 22/26+.
+ */
+function createStreamUserToken(secret: string, userId: string, exp: number, iat: number): string {
+  const header = { alg: "HS256", typ: "JWT" };
+  const payload = { user_id: userId, exp, iat };
+
+  const base64Url = (obj: object): string =>
+    Buffer.from(JSON.stringify(obj))
+      .toString("base64")
+      .replace(/=/g, "")
+      .replace(/\+/g, "-")
+      .replace(/\//g, "_");
+
+  const headerB64 = base64Url(header);
+  const payloadB64 = base64Url(payload);
+  const data = `${headerB64}.${payloadB64}`;
+
+  const signature = crypto
+    .createHmac("sha256", secret)
+    .update(data)
+    .digest("base64")
+    .replace(/=/g, "")
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_");
+
+  return `${data}.${signature}`;
+}
 
 export const tokenProvider = async () => {
   const user = await currentUser();
@@ -28,16 +44,9 @@ export const tokenProvider = async () => {
   if (!apiKey) throw new Error("Stream api key not found || No api key");
   if (!apiSecret) throw new Error("Stream secret not found || No secret");
 
-  // Dynamically import StreamClient after buffer compatibility patch is guaranteed
-  const { StreamClient } = await import("@stream-io/node-sdk");
-
-  const streamClient = new StreamClient(apiKey, apiSecret);
-
-  // exp is optional (by default the token is valid for an hour)
+  // exp is optional (token is valid for 1 hour by default)
   const exp = Math.round(new Date().getTime() / 1000) + 60 * 60;
   const issued = Math.floor(Date.now() / 1000) - 60;
 
-  const token = streamClient.createToken(user.id, exp, issued);
-
-  return token;
+  return createStreamUserToken(apiSecret, user.id, exp, issued);
 };
