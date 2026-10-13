@@ -28,7 +28,7 @@ export default function Page() {
     {
       name: "Anubhav Singh",
       role: "Frontend & Video Conferencing",
-      img: "/images/avatar-1.jpeg",
+      img: "/images/IMG20250513173614.jpg",
       tag: "Core Contributor",
     },
     {
@@ -40,7 +40,7 @@ export default function Page() {
     {
       name: "Saksham Agrawal",
       role: "UI Systems & Media Pipelines",
-      img: "/images/avatar-3.png",
+      img: "/images/avatar-5.png",
       tag: "Core Contributor",
     },
   ];
@@ -54,9 +54,9 @@ export default function Page() {
         <div className="absolute top-[70%] -left-40 w-[600px] h-[600px] bg-cyan-600/10 rounded-full blur-[160px]" />
       </div>
 
-      {/* Top Navbar */}
-      <header className="sticky top-0 z-50 backdrop-blur-xl bg-[#080C15]/80 border-b border-white/[0.08] transition-all">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      {/* Top Floating Navbar */}
+      <header className="sticky top-3 z-50 mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="backdrop-blur-2xl bg-[#090D18]/75 rounded-2xl shadow-2xl shadow-black/40 px-6 h-16 sm:h-20 flex items-center justify-between transition-all">
           <Link href="/" className="flex items-center gap-3 group">
             <div className="relative flex items-center justify-center size-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 shadow-lg shadow-indigo-500/25 group-hover:scale-105 transition-transform duration-200">
               <Image
